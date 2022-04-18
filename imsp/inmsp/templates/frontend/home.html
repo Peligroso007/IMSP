@@ -1,0 +1,26 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %}
+    HOME
+{% endblock %}
+{% block styles%}
+    <style>
+        h2, a {
+            color: var(--color-primary);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-250%);
+        }
+
+        a {
+            margin-top: 1rem;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2>Home page is Comming Soon!!!</h2>
+    <a href="{% url 'admin' %}">Click Here!! to go to Admin Panel.</a>
+{% endblock %}

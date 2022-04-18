@@ -1,0 +1,10 @@
+.idea/
+config.json
+*.pyc
+backup
+venv/
+env/
+.vscode/
+media
+.env
+__pycache__/

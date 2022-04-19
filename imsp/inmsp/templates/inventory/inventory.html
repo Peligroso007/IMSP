@@ -1,0 +1,90 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block title %}
+Inventory Management
+{% endblock %}
+{% block styles %}
+<style>
+    .card {
+        background: var(--color-bg);
+    }
+    .card-body table thead tr th,
+    .card span {
+        color: var(--color-primary)
+
+    }
+
+    .card-body .table,
+    .card-body .table thead th,
+    .card-body .table tbody td{
+        border: 1px solid var(--color-primary);
+    }
+    .edit:hover {
+        color: black !important;
+    }
+</style>
+{% endblock %}
+{% block main_content %}
+<section>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"
+                style="display: flex; justify-content: space-between;align-items: center">
+                <span style="font-size: 1.3rem;">Inventory</span>
+                {% if not about_us.count %}
+                <a type="button" class="btn btn-primary" href="#">Add
+                    Product</a>
+                {% endif %}
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Product Name</th>
+                            <th>Product Type</th>
+                            <th>Marked Price</th>
+                            <th>Product Discount</th>
+                            <th>Product Buying Price</th>
+                            <th>Product Stock</th>
+                            <th>Product Expiry</th>
+                            <th>Product Manufacture</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ forloop.counter }}1</td>
+                            <td>{{ about.detail|safe }}Rice</td>
+                            <td>{{ about.detail|safe }}Food</td>
+                            <td>{{ about.detail|safe }}140</td>
+                            <td>{{ about.detail|safe }}5%</td>
+                            <td>{{ about.detail|safe }}100</td>
+                            <td>{{ about.detail|safe }}200</td>
+                            <td>{{ about.detail|safe }}2023-4-4</td>
+                            <td>{{ about.detail|safe }}2020-5-5</td>
+                            <td>
+                                <div>
+                                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Action
+                                    </button>
+                                    <div class="dropdown-menu animated--fade-in" style="width: 50px;" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item edit" style="color: var(--color-white)" href="#">Edit</a>
+                                        <a class="dropdown-item delete-data-confirmation"
+                                            data-href="#" data-pk="{{ about.id }}"
+                                            style="color: #ff0000">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

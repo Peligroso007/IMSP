@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMSA | {% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'inmsp/style.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    {% block styles %}
+        
+    {% endblock %}
+    <style>
+        .navbar {
+            /* position: fixed; */
+            width: 100%;
+            background: var(--color-bg);
+            z-index: 100;
+            box-shadow: 5px 10px 18px var(--color-bg-variant);
+        }
+    
+        .navbar-brand {
+            padding: 0;
+            margin: 0;
+            font-weight: 500;
+            font-size: 1.5rem;
+            margin-left: 2rem;
+        }
+    
+        .dropdown-menu {
+            background: var(--color-bg);
+            width: 100%;
+            text-align: center;
+        }
+    
+        .dropdown a {
+            color: var(--color-primary);
+            margin: 0;
+            padding: 0;
+        }
+    
+        .dropdown a:hover {
+            background: var(--color-bg);
+            color: var(--color-white);
+        }
+    
+        .sidebar {
+            position: fixed;
+            top: 3.5rem;
+            left: 0;
+            height: 100vh;
+            width: 250px;
+            background: var(--color-bg);
+            transition: var(--transition);
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 5px 10px 18px var(--color-bg-variant);
+    
+        }
+    
+        .sidebar.resized {
+            width: 88px;
+        }
+    
+        .sidebar.resized .text {
+            opacity: 0;
+        }
+        .sidebar.resized .menu-bar {
+            margin-top: 3.5rem;
+        }
+    
+        .menu-bar {
+            margin-top: 23%;
+            width: 90%;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        .sidebar .toggle {
+            position: absolute;
+            top: 2%;
+            right: -13px;
+            /* transform: translateY(-50%); */
+            transform: rotate(180deg);
+            height: 25px;
+            width: 25px;
+            background: var(--color-bg-variant);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+        }
+    
+        .sidebar.resized .toggle {
+            transform: rotate(0deg);
+        }
+    
+        .welcome {
+            font-size: 1rem;
+        }
+    
+        .dropdown {
+            margin-right: 8rem;
+        }
+    
+        .sidebar li .icon {
+            min-width: 2.5rem;
+            font-size: 1.4rem;
+            margin-left: 2.5rem;
+        }
+        .sidebar.resized li .icon {
+            margin-left: 1.9rem;
+        }
+    
+        .sidebar li a {
+            height: 3rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            border-radius: 0.15rem;
+            transition: var(--transition);
+        }
+    
+        .sidebar li a:hover {
+            background: var(--color-bg-variant);
+            text-decoration: none;
+        }
+    
+        .main_content {
+            position: relative;
+            left: 250px;
+            top: 3.5rem;
+            /* height: calc(100vh - 3.5rem); */
+            width: calc(100% - 250px);
+            transition: var(--transition);
+        }
+    
+        .sidebar.resized ~ .main_content {
+            left: 88px;
+            width: calc(100% - 88px);
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        @media screen and (max-width: 1024px) {
+    
+            .username,
+            .welcome {
+                font-size: 1rem;
+            }
+    
+            .dropdown {
+                margin-right: 2rem;
+            }
+    
+            .sidebar li a {
+                font-size: 0.9rem;
+            }
+            .sidebar li .icon {
+                min-width: 2.3rem;
+                font-size: 1.3rem;
+            }
+    
+        }
+    
+        @media screen and (max-width: 600px) {
+            .sidebar {
+                top: 3.2rem;
+            }
+    
+            .username,
+            .welcome {
+                font-size: 0.7rem;
+            }
+    
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+    
+            .dropdown {
+                margin-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'admin/dashboard.html' %}
+        <div class="main_content">
+            {% block main_content %}
+            {% endblock %}
+        </div>
+    <script>
+        const body = document.querySelector("body"),
+        sidebar = body.querySelector(".sidebar"),
+        toggle = body.querySelector(".toggle");
+
+        toggle.addEventListener("click", () =>{
+            sidebar.classList.toggle("resized");
+        });
+
+        function reportWindowSize() {
+            if(window.innerWidth < 1024){
+            sidebar.classList.add("resized");
+        };
+}
+window.onresize = reportWindowSize;
+        
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

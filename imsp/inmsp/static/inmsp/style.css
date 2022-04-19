@@ -55,7 +55,8 @@ h1, h2, h3, h4, h5 {
 }
 
 section {
-    margin-top: 8rem;
+    margin-left: 4rem;
+    margin-right: 4rem ;
 }
 
 section > h2, section > h5 {
@@ -81,7 +82,7 @@ a:hover {
     color: var(--color-white);
 }
 
-.btn {
+.btns {
     width: max-content;
     display: inline-block;
     color: var(--color-primary);
@@ -92,13 +93,13 @@ a:hover {
     transition: var(--transition);
 }
 
-.btn:hover {
+.btns:hover {
     background: var(--color-white);
     color: var(--color-bg);
     border-color: transparent;
 }
 
-.btn-primary {
+.btns-primary {
     background: var(--color-primary);
     color: var(--color-bg);
 }
@@ -116,7 +117,9 @@ img {
     }
 
     section {
-        margin-top: 6rem;
+        /* margin-top: 6rem; */
+        margin-left: 2rem;
+        margin-right: 2rem;
     }
 }
 

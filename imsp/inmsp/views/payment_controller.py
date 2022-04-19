@@ -6,5 +6,5 @@ from django.contrib.auth.decorators import login_required
 
 # @login_required()
 # @user_passes_test(is_staff_or_admin)
-def dashboard(request):
-    return render(request, 'admin/admin_base.html')
+def Payment(request):
+    return render(request, 'payment/payment.html')

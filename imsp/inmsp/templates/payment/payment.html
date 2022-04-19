@@ -1,0 +1,64 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block title %}
+Payment
+{% endblock %}
+{% block styles %}
+<style>
+    .card {
+        background: var(--color-bg);
+    }
+    .card-body table thead tr th,
+    .card span {
+        color: var(--color-primary)
+
+    }
+
+    .card-body .table,
+    .card-body .table thead th,
+    .card-body .table tbody td{
+        border: 1px solid var(--color-primary);
+    }
+    .edit:hover {
+        color: black !important;
+    }
+</style>
+{% endblock %}
+{% block main_content %}
+<section>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"
+                style="display: flex; justify-content: space-between;align-items: center">
+                <span style="font-size: 1.3rem;">Payment</span>
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Discount</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ forloop.counter }}1</td>
+                            <td>{{ about.detail|safe }}Rice</td>
+                            <td>{{ about.detail|safe }}400</td>
+                            <td>{{ about.detail|safe }}200</td>
+                            <td>{{ about.detail|safe }}200</td>
+                            <td>{{ about.detail|safe }}1000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

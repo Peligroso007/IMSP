@@ -1,191 +1,3 @@
-{% extends 'layouts/base.html' %}
-{% load static %}
-{% block title %}
-Admin Dashboard
-{% endblock %}
-{% block styles %}
-<style>
-    .navbar {
-        position: fixed;
-        width: 100%;
-        background: var(--color-bg);
-        z-index: 100;
-    }
-
-    .navbar-brand {
-        padding: 0;
-        margin: 0;
-        font-weight: 500;
-        font-size: 1.5rem;
-        margin-left: 2rem;
-    }
-
-    .dropdown-menu {
-        background: var(--color-bg);
-        width: 100%;
-        text-align: center;
-    }
-
-    .dropdown a {
-        color: var(--color-primary);
-        margin: 0;
-        padding: 0;
-    }
-
-    .dropdown a:hover {
-        background: var(--color-bg);
-        color: var(--color-white);
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 3.5rem;
-        left: 0;
-        height: 100vh;
-        width: 250px;
-        background: var(--color-bg);
-        transition: var(--transition);
-        white-space: nowrap;
-        z-index: 100;
-    }
-
-    .sidebar.resize {
-        width: 88px;
-    }
-
-    .sidebar.resize .text {
-        opacity: 0;
-    }
-    .sidebar.resize .menu-bar {
-        margin-top: 3.5rem;
-    }
-
-    .menu-bar {
-        margin-top: 23%;
-        width: 90%;
-        margin-left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .sidebar .toggle {
-        position: absolute;
-        top: 2%;
-        right: -13px;
-        /* transform: translateY(-50%); */
-        transform: rotate(180deg);
-        height: 25px;
-        width: 25px;
-        background: var(--color-bg-variant);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        font-size: 1.5rem;
-    }
-
-    .sidebar.resize .toggle {
-        transform: rotate(0deg);
-    }
-
-    .welcome {
-        font-size: 1rem;
-    }
-
-    .dropdown {
-        margin-right: 8rem;
-    }
-
-    .sidebar li .icon {
-        min-width: 2.5rem;
-        font-size: 1.4rem;
-        margin-left: 2.5rem;
-    }
-    .sidebar.resize li .icon {
-        margin-left: 1.9rem;
-    }
-
-    .sidebar li a {
-        height: 3rem;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        border-radius: 0.15rem;
-        transition: var(--transition);
-    }
-
-    .sidebar li a:hover {
-        background: var(--color-bg-variant);
-        text-decoration: none;
-    }
-
-    .main_content {
-        position: relative;
-        left: 250px;
-        top: 3.5rem;
-        height: calc(100vh - 3.5rem);
-        width: calc(100% - 250px);
-        transition: var(--transition);
-    }
-
-    .sidebar.resize ~ .main_content {
-        left: 88px;
-        width: calc(100% - 88px);
-    }
-
-
-
-
-
-
-
-
-
-
-
-    @media screen and (max-width: 1024px) {
-
-        .username,
-        .welcome {
-            font-size: 1rem;
-        }
-
-        .dropdown {
-            margin-right: 2rem;
-        }
-
-        .sidebar li a {
-            font-size: 0.9rem;
-        }
-        .sidebar li .icon {
-            min-width: 2.3rem;
-            font-size: 1.3rem;
-        }
-
-    }
-
-    @media screen and (max-width: 600px) {
-        .sidebar {
-            top: 3.2rem;
-        }
-
-        .username,
-        .welcome {
-            font-size: 0.7rem;
-        }
-
-        .navbar-brand {
-            font-size: 1.3rem;
-        }
-
-        .dropdown {
-            margin-right: 1rem;
-        }
-    }
-</style>
-{% endblock %}
-
-{% block content %}
 <!-- As a link -->
 <header class="header">
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -202,7 +14,6 @@ Admin Dashboard
                     <a class="dropdown-item" href="#">Logout</a>
                 </div>
             </div>
-
         </li>
     </nav>
 </header>
@@ -213,13 +24,19 @@ Admin Dashboard
         <div class="menu">
             <ul class="menu-links">
                 <li class="menu-link">
-                    <a href="#">
+                    <a href="{% url 'admin' %}">
                         <i class='bx bx-home icon'></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
                 </li>
                 <li class="menu-link">
-                    <a href="#">
+                    <a href="{% url 'staff' %}">
+                        <i class='bx bx-briefcase-alt icon'></i>
+                        <span class="text nav-text">Staff</span>
+                    </a>
+                </li>
+                <li class="menu-link">
+                    <a href="{% url 'inventory' %}">
                         <i class='bx bx-package icon' ></i>
                         <span class="text nav-text">Inventory</span>
                     </a>
@@ -231,9 +48,9 @@ Admin Dashboard
                     </a>
                 </li>
                 <li class="menu-link">
-                    <a href="#">
-                        <i class='bx bx-file icon' ></i>
-                        <span class="text nav-text">Sales Orders</span>
+                    <a href="{% url 'stock' %}">
+                        <i class='bx bx-box icon' ></i>
+                        <span class="text nav-text">Stock</span>
                     </a>
                 </li>
                 <li class="menu-link">
@@ -243,41 +60,20 @@ Admin Dashboard
                     </a>
                 </li>
                 <li class="menu-link">
-                    <a href="#">
+                    <a href="{% url 'payment' %}">
                         <i class='bx bx-money-withdraw icon' ></i>
                         <span class="text nav-text">Payments</span>
                     </a>
                 </li>
                 <li class="menu-link">
-                    <a href="#">
+                    <a href="{% url 'suppliers' %}">
                         <i class='bx bx-building-house icon' ></i>
                         <span class="text nav-text">Suppliers Info</span>
-                    </a>
-                </li>
-                <li class="menu-link">
-                    <a href="#">
-                        <i class='bx bxs-report icon' ></i>
-                        <span class="text nav-text">report</span>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="main_content">
-    {% block main_content %}
-    {% endblock %}
-</div>
-{% endblock %}
 
-{% block script %}
-    <script>
-        const body = document.querySelector("body"),
-        sidebar = body.querySelector(".sidebar"),
-        toggle = body.querySelector(".toggle");
 
-        toggle.addEventListener("click", () =>{
-            sidebar.classList.toggle("resize");
-        });
-    </script>
-{% endblock %}

@@ -12,8 +12,20 @@
     {% block styles %}
         
     {% endblock %}
+    <style>
+        .navbar {
+            background: var(--color-bg) !important;
+        }
+        .navbar-brand {
+            margin-left: 5rem;
+        }
+    </style>
 </head>
 <body>
+    <!-- As a link -->
+<nav class="navbar navbar-dark">
+    <a class="navbar-brand" href="#">Vhati Inventories</a>
+  </nav>
     {% block content %}
     {% endblock %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

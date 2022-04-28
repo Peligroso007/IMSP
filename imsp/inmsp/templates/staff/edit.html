@@ -1,0 +1,115 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block title %}
+Staff Management
+{% endblock %}
+{% block styles %}
+<style>
+    .card {
+        margin: auto;
+        background: var(--color-bg);
+    }
+
+    form {
+        color: var(--color-primary);
+    }
+
+    .card-body,
+    .card-header,
+    .card-footer {
+        background: var(--color-bg);
+        border: 1px solid transparent;
+    }
+
+    .form-control,
+    .form-control:focus {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .form-control option {
+        background: var(--color-bg);
+    }
+</style>
+{% endblock%}
+
+{% block main_content %}
+<div class="card shadow mb-4 col-10">
+    <div class="card-header py-3">
+        <h6 class="m-0"
+            style="font-size: 1.5rem; color: var(--color-primary); display: flex; justify-content: space-between;align-items: center">
+            Edit Staff
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive col-12">
+            <form action="{% url 'edit_user' staff.id %}" method="post" enctype="multipart/form-data" id="staff">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6 form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" name="first_name" id="first_name"
+                            value="{{ staff.first_name }}" required>
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" id="last_name"
+                            value="{{ staff.last_name }}" required>
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <label for="address">Address </label>
+                        <input type="text" class="form-control" name="address" id="address"
+                            value="{{ staff.profile.address }}" required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="username">UserName </label>
+                        <input type="text" class="form-control" name="username" value="{{ staff.username }}" required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="password">Password </label>
+                        <input type="password" class="form-control" name="password" value="{{ staff.password }}"
+                            required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="phone">Phone Number </label>
+                        <input type="text" class="form-control" name="phone" id="phone"
+                            value="{{ staff.profile.phone }}" required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="email">Email Address</label>
+                        <input type="text" class="form-control" name="email" id="email" value="{{ staff.email }}"
+                            required>
+                    </div>
+
+
+                    <div class="col-lg-3 form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" name="gender">
+                            <option value="" selected>--Select Gender--</option>
+                            <option value="True" {% if staff.profile.gender == True %}selected{% endif %}>Male</option>
+                            <option value="False" {% if staff.profile.gender == False %}selected{% endif %}>Female
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="role">Role</label>
+                        <select class="form-control" name="role">
+                            <option value="" selected>--Select Role--</option>
+                            <option value="1" {% if staff.profile.role == 1 %}selected{% endif %}>Admin</option>
+                            <option value="2" {% if staff.profile.role == 2 %}selected{% endif %}>Staff</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

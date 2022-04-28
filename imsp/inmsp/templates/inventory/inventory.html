@@ -22,6 +22,26 @@ Inventory Management
     .edit:hover {
         color: black !important;
     }
+
+    form {
+        color: var(--color-primary);
+    }
+
+    .modal-body, .modal-header, .modal-footer {
+        background: var(--color-bg);
+        border: 1px solid transparent;
+    }
+
+    .form-control, .form-control:focus {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .form-control option {
+        background: var(--color-bg);
+    }
+
 </style>
 {% endblock %}
 {% block main_content %}
@@ -32,7 +52,8 @@ Inventory Management
                 style="display: flex; justify-content: space-between;align-items: center">
                 <span style="font-size: 1.3rem;">Inventory</span>
                 {% if not about_us.count %}
-                <a type="button" class="btn btn-primary" href="#">Add
+                <a type="button" class="btn btn-primary" href="{% url 'add_product' %}" data-toggle="modal"
+                data-target="#productCreateModal">Add
                     Product</a>
                 {% endif %}
             </h6>
@@ -55,16 +76,17 @@ Inventory Management
                         </tr>
                     </thead>
                     <tbody>
+                        {% for p in product %}
                         <tr>
-                            <td>{{ forloop.counter }}1</td>
-                            <td>{{ about.detail|safe }}Rice</td>
-                            <td>{{ about.detail|safe }}Food</td>
-                            <td>{{ about.detail|safe }}140</td>
-                            <td>{{ about.detail|safe }}5%</td>
-                            <td>{{ about.detail|safe }}100</td>
-                            <td>{{ about.detail|safe }}200</td>
-                            <td>{{ about.detail|safe }}2023-4-4</td>
-                            <td>{{ about.detail|safe }}2020-5-5</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ p.product_name }}</td>
+                            <td>{{ p.product_type }}</td>
+                            <td>{{ p.product_marked_price }}</td>
+                            <td>{{ p.product_discount }}%</td>
+                            <td>{{ p.product_buying_price }}</td>
+                            <td>{{ p.product_stock }}</td>
+                            <td>{{ p.product_experies }}</td>
+                            <td>{{ p.product_manufacture }}</td>
                             <td>
                                 <div>
                                     <button class="btn btn-primary dropdown-toggle btn-sm" type="button"
@@ -73,18 +95,46 @@ Inventory Management
                                         Action
                                     </button>
                                     <div class="dropdown-menu animated--fade-in" style="width: 50px;" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item edit" style="color: var(--color-white)" href="#">Edit</a>
-                                        <a class="dropdown-item delete-data-confirmation"
-                                            data-href="#" data-pk="{{ about.id }}"
+                                        <a class="dropdown-item edit" style="color: var(--color-white)" href="{% url 'edit_product' p.id %}">Edit</a>
+                                        <a class="dropdown-item delete-data-confirmation" href="{% url 'delete_product' p.id%}"
                                             style="color: #ff0000">Delete</a>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </section>
+
+<form action="{% url 'add_product' %}"
+method="post" id="universityCreateFrom"
+enctype="multipart/form-data">
+
+<div class="modal fade" id="productCreateModal" tabindex="-1" role="dialog"
+ aria-labelledby="studentCreateModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-add-student" id="exampleModalLongTitle">Add Product </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color: var(--color-white);">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                {% include 'inventory/_form.html' %}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</div>
+</div>
+</form>
 {% endblock %}

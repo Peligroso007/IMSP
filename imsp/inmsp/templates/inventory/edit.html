@@ -1,0 +1,95 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block title %}
+Staff Management
+{% endblock %}
+{% block styles %}
+<style>
+    .card {
+        margin: auto;
+        background: var(--color-bg);
+    }
+
+    form {
+        color: var(--color-primary);
+    }
+
+    .card-body,
+    .card-header,
+    .card-footer {
+        background: var(--color-bg);
+        border: 1px solid transparent;
+    }
+
+    .form-control,
+    .form-control:focus {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .form-control option {
+        background: var(--color-bg);
+    }
+</style>
+{% endblock%}
+
+{% block main_content %}
+<div class="card shadow mb-4 col-10">
+    <div class="card-header py-3">
+        <h6 class="m-0"
+            style="font-size: 1.5rem; color: var(--color-primary); display: flex; justify-content: space-between;align-items: center">
+            Edit Staff
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive col-12">
+            <form action="{% url 'edit_product' p.id %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6 form-group">
+                        <label for="product_name">Product Name</label>
+                        <input type="text" class="form-control" name="product_name" id="product_name"
+                            value="{{p.product_name}}" required>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label for="catagory">Catagory</label>
+                        <input type="text" class="form-control" name="catagory" id="catagory" value="{{p.product_type}}"
+                            required>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label for="mark_price">Marked Price</label>
+                        <input type="number" class="form-control" name="mark_price" id="mark_price"
+                            value="{{p.product_marked_price}}" required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="discount">Discount </label>
+                        <input type="number" class="form-control" name="discount" value="{{p.product_discount}}"
+                            required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="buying_price">Buying Price </label>
+                        <input type="number" class="form-control" name="buying_price" value="{{p.product_buying_price}}"
+                            required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="expiry_date">Expiry Date </label>
+                        <input type="date" class="form-control" name="expiry_date" id="expiry_date"
+                            value="{{p.product_experies|date:'Y-m-d'}}" required>
+                    </div>
+
+                    <div class="col-lg-3 form-group">
+                        <label for="manufacture_date">Manufacture Date </label>
+                        <input type="date" class="form-control" name="manufacture_date" id="manufacture_date"
+                            value="{{p.product_manufacture|date:'Y-m-d'}}" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 100,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$1EzIJcnd5Jlx$Vb1HyV5NnvD+gtumq99ENezHZeUPTB2v1cFYp1xnf7I=",
+            "is_superuser": true,
+            "username": "milan",
+            "first_name": "Milan",
+            "last_name": "Bashyal",
+            "email": ""
+        }
+    },
+    {
+        "model": "inmsp.profile",
+        "pk": 100,
+        "fields": {
+            "user_id": 100,
+            "is_verified": true,
+            "role": 1,
+            "phone": "9848049694",
+            "gender": true,
+            "address": "Surkhet"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 101,
+        "fields": {
+            "password": "pbkdf2_sha256$120000$1EzIJcnd5Jlx$Vb1HyV5NnvD+gtumq99ENezHZeUPTB2v1cFYp1xnf7I=",
+            "is_superuser": true,
+            "username": "sabin",
+            "first_name": "Sabin",
+            "last_name": "Dhungel",
+            "email": ""
+        }
+    },
+    {
+        "model": "inmsp.profile",
+        "pk": 101,
+        "fields": {
+            "user_id": 101,
+            "is_verified": true,
+            "role": 2,
+            "phone": "9848049694",
+            "gender": true,
+            "address": "Surkhet"
+        }
+    }
+]

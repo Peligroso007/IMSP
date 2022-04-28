@@ -1,17 +1,24 @@
+{% load static %}
 <!-- As a link -->
 <header class="header">
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Vhati Inventories</a>
         <li class="nav-item dropdown">
             <div class="username" style="display: flex;">
                 <small class="welcome" style="margin-right: 0.5rem;">Welcome,</small>
+                {% if request.user.is_authenticated %}
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                    aria-expanded="false"> UserName</a>
+                    aria-expanded="false">{{ user.username }}</a>
+                    {% endif %}
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">UserName</a>
+                    <img src="{% static 'inmsp/texture.jpeg' %}" alt="" height="50px" style="margin-left: 50%; transform: translateX(-50%); border-radius: 50%; width: 50px !important;">
+                {% if request.user.is_authenticated %}
+                    <a class="dropdown-item" href="#">{{ user.username }}</a>
+                    {% endif %}
+
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Setting</a>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                 </div>
             </div>
         </li>
@@ -23,12 +30,20 @@
     <div class="menu-bar">
         <div class="menu">
             <ul class="menu-links">
+            {% if user.profile.role == 1 %}
                 <li class="menu-link">
                     <a href="{% url 'admin' %}">
                         <i class='bx bx-home icon'></i>
                         <span class="text nav-text">Dashboard</span>
                     </a>
                 </li>
+                <li class="menu-link">
+                    <a href="{% url 'payment' %}">
+                        <i class='bx bx-money-withdraw icon' ></i>
+                        <span class="text nav-text">Payments</span>
+                    </a>
+                </li>
+                {% endif %}
                 <li class="menu-link">
                     <a href="{% url 'staff' %}">
                         <i class='bx bx-briefcase-alt icon'></i>
@@ -57,12 +72,6 @@
                     <a href="#">
                         <i class='bx bx-user icon'></i>
                         <span class="text nav-text">Customer</span>
-                    </a>
-                </li>
-                <li class="menu-link">
-                    <a href="{% url 'payment' %}">
-                        <i class='bx bx-money-withdraw icon' ></i>
-                        <span class="text nav-text">Payments</span>
                     </a>
                 </li>
                 <li class="menu-link">

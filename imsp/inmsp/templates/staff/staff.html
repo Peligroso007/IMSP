@@ -22,6 +22,25 @@ Staff Management
     .edit:hover {
         color: black !important;
     }
+
+    form {
+        color: var(--color-primary);
+    }
+
+    .modal-body, .modal-header, .modal-footer {
+        background: var(--color-bg);
+        border: 1px solid transparent;
+    }
+
+    .form-control, .form-control:focus {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .form-control option {
+        background: var(--color-bg);
+    }
 </style>
 {% endblock %}
 {% block main_content %}
@@ -31,10 +50,9 @@ Staff Management
             <h6 class="m-0 font-weight-bold text-primary"
                 style="display: flex; justify-content: space-between;align-items: center">
                 <span style="font-size: 1.3rem;">STAFF</span>
-                {% if not about_us.count %}
-                <a type="button" class="btn btn-primary" href="#">Add
+                <a type="button" class="btn btn-primary" href="{% url 'add_user' %}" data-toggle="modal"
+                data-target="#userCreateModal">Add
                     Staff</a>
-                {% endif %}
             </h6>
         </div>
         <div class="card-body">
@@ -50,19 +68,25 @@ Staff Management
                             <th>Mobile</th>
                             <th>Address</th>
                             <th>Gender</th>
+                            {% if user.profile.role == 1 %}
                             <th>Action</th>
+            {% endif %}
+
                         </tr>
                     </thead>
                     <tbody>
+        {% for staff in staffs %}
+                        
                         <tr>
-                            <td>{{ forloop.counter }}1</td>
-                            <td>{{ about.detail|safe }}Milan Bashyal</td>
-                            <td>{{ about.detail|safe }}Milan</td>
-                            <td>{{ about.detail|safe }}Staff</td>
-                            <td>{{ about.detail|safe }}milanbashyal123@gmail.com</td>
-                            <td>{{ about.detail|safe }}9868228001</td>
-                            <td>{{ about.detail|safe }}Surkhet</td>
-                            <td>{{ about.detail|safe }}Male</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ staff.profile.name }}</td>
+                            <td>{{ staff.username }}</td>
+                            <td>{% if staff.profile.role == 1 %}Admin{% elif staff.profile.role == 2 %}Staff{% else %}Role not define.{% endif %}</td>
+                            <td>{{ staff.email }}</td>
+                            <td>{{ staff.profile.phone }}</td>
+                            <td>{{ staff.profile.address }}</td>
+                            <td>{% if staff.profile.gender == True %}Male{% else %}Female{% endif %}</td>
+                            {% if user.profile.role == 1 %}
                             <td>
                                 <div>
                                     <button class="btn btn-primary dropdown-toggle btn-sm" type="button"
@@ -71,18 +95,48 @@ Staff Management
                                         Action
                                     </button>
                                     <div class="dropdown-menu animated--fade-in" style="width: 50px;" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item edit" style="color: var(--color-white)" href="#">Edit</a>
-                                        <a class="dropdown-item delete-data-confirmation"
-                                            data-href="#" data-pk="{{ about.id }}"
+                                        <a class="dropdown-item edit" style="color: var(--color-white)" href="{% url 'edit_user' staff.id %}">Edit</a>
+                                        <a class="dropdown-item delete-data-confirmation" href="{% url 'delete_user' staff.id %}"
                                             style="color: #ff0000">Delete</a>
                                     </div>
                                 </div>
                             </td>
+                            {% endif %}
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </section>
+
+
+<form action="{% url 'add_user' %}"
+method="post" id="universityCreateFrom"
+enctype="multipart/form-data">
+
+<div class="modal fade" id="userCreateModal" tabindex="-1" role="dialog"
+ aria-labelledby="studentCreateModalTitle" aria-hidden="true">
+<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-add-student" id="exampleModalLongTitle">Add Student </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color: var(--color-white);">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div>
+                {% include 'staff/_form.html' %}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</div>
+</div>
+</form>
 {% endblock %}

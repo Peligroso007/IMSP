@@ -6,7 +6,7 @@ class Product(models.Model):
     product_marked_price = models.IntegerField(null=True, blank=True)
     product_discount = models.IntegerField(null=True, blank=True)
     product_buying_price = models.IntegerField(null=True, blank=True)
-    product_stock = models.IntegerField(null=True, blank=True)
+    product_stock = models.ForeignKey('Stock', on_delete=models.CASCADE, null=True)
 
 
     product_experies = models.DateTimeField(null=True, blank=True)

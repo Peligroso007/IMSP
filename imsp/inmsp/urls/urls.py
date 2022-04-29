@@ -1,5 +1,5 @@
 from django.urls import path
-from inmsp.views import admin_controller, staff_controller, inventory_controller, stock_controller, payment_controller, suppliers_controller, product_controller
+from inmsp.views import admin_controller, staff_controller, inventory_controller, stock_controller, payment_controller, suppliers_controller, product_controller, checkout_controller
 from inmsp.views.frontend import logout_controller
 
 urlpatterns = [
@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/dashboard/staff', staff_controller.Staff, name='staff'),
     path('admin/dashboard/inventory', inventory_controller.Inventory, name='inventory'),
     path('admin/dashboard/stock', stock_controller.stock, name='stock'),
-    path('admin/dashboard/payment', payment_controller.Payment, name='payment'),
+    path('admin/dashboard/payment', payment_controller.payment, name='payment'),
     path('admin/dashboard/suppliers', suppliers_controller.suppliers, name='suppliers'),
 
 
@@ -29,6 +29,15 @@ urlpatterns = [
 
     path('admin/dashboard/add-stock/', stock_controller.add_stock, name='add_stock'),
     path('admin/dashboard/add-quantity/<int:stock_id>', stock_controller.add_quantity, name='add_quantity'),
+
+
+    path('admin/dashboard/checkout/', checkout_controller.Checkout, name='checkout'),
+    path('admin/dashboard/add_payment/', checkout_controller.add_payment, name='add_payment'),
+
+
+    path('admin/dashboard/add_sales/', checkout_controller.add_sales, name='add_sales'),
+
+
 
 
 

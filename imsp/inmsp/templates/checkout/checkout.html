@@ -1,0 +1,123 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block title %}
+Checkout Management
+{% endblock %}
+{% block styles %}
+<style>
+    .main_body {
+        background: var(--color-bg);
+        color: var(--color-primary);
+    }
+
+    .heading {
+        padding: 1rem 0 0.3rem 1rem;
+    }
+
+    .form-control,
+    .form-control:focus {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .form-control option {
+        background: var(--color-bg);
+    }
+
+    .card {
+        background: var(--color-bg);
+    }
+
+    .card-body table thead tr th,
+    .card span {
+        color: var(--color-primary)
+    }
+
+    .card-body .table,
+    .card-body .table thead th,
+    .card-body .table tbody td,
+    .card-body .table tfoot td {
+        border: 1px solid var(--color-primary);
+    }
+
+    .edit:hover {
+        color: black !important;
+    }
+</style>
+
+
+{% endblock %}
+{% block main_content %}
+<section>
+    <div class="main_body">
+        <h3 class="heading">Checkout</h3>
+        <div class="space" style="height: 2px; background: var(--color-primary-variant); width: 100%;"></div>
+        <form action="{% url 'add_payment' %}" method="post">
+            {% csrf_token %}
+            <div class="row mt-4 ml-4" style="align-items: flex-end;">
+                <div class="col-lg-6 form-group">
+                    <label for="product_name">Product Name</label>
+                    <select class="form-control" name="product_name" id="product_name">
+                        <option selected>--Select Product--</option>
+                        {% for p in product %}
+                        <option value="{{p.id}}">{{p.product_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-lg-3 form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" id="quantity" required>
+                </div>
+                <div class="col-lg-3 form-group">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </form>
+        <div class="space" style="height: 2px; background: var(--color-primary-variant); width: 100%;"></div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for payment in payments %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{ payment.product.product_name }}</td>
+                                <td>{{ payment.price }}</td>
+                                <td>{{ payment.quantity }}</td>
+                                <td>{{ payment.total_amount }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align: right;">Grand Total</td>
+                                <td>{{grand_total}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <form action="{% url 'add_sales' %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" style="display: none;" name="grand_total" value="{{grand_total}}">
+                <button type="submit" class="btn btn-primary float-right m-3">Make Payment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

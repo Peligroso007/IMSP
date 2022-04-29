@@ -14,7 +14,7 @@
     {% endblock %}
     <style>
         .navbar {
-            /* position: fixed; */
+            position: fixed;
             width: 100%;
             background: var(--color-bg);
             z-index: 100;
@@ -142,6 +142,10 @@
         .sidebar.resized ~ .main_content {
             left: 88px;
             width: calc(100% - 88px);
+        }
+
+        .main_content{
+            top: 7rem;
         }
     
     

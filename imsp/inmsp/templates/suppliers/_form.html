@@ -1,0 +1,22 @@
+<form>
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-lg-6 form-group">
+            <label for="suppliers_name">Suppliers Name</label>
+            <input type="text" class="form-control" name="suppliers_name" id="suppliers_name" required>
+        </div>
+        <div class="col-lg-6 form-group">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" name="location" id="location" required>
+        </div>
+        <div class="col-lg-3 form-group">
+            <label for="contact">Contact</label>
+            <input type="tel" class="form-control" name="contact" id="contact" required>
+        </div>
+
+        <div class="col-lg-6 form-group">
+            <label for="email">Email </label>
+            <input type="email" class="form-control" name="email" required>
+        </div>
+    </div>
+</form>

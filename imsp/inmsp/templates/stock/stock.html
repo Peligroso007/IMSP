@@ -8,19 +8,42 @@ Stock Management
     .card {
         background: var(--color-bg);
     }
+
     .card-body table thead tr th,
     .card span {
         color: var(--color-primary)
-
     }
 
     .card-body .table,
     .card-body .table thead th,
-    .card-body .table tbody td{
+    .card-body .table tbody td {
         border: 1px solid var(--color-primary);
     }
+
     .edit:hover {
         color: black !important;
+    }
+
+    form {
+        color: var(--color-primary);
+    }
+
+    .modal-body,
+    .modal-header,
+    .modal-footer {
+        background: var(--color-bg);
+        border: 1px solid transparent;
+    }
+
+    .form-control,
+    .form-control:focus {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .form-control option {
+        background: var(--color-bg);
     }
 </style>
 {% endblock %}
@@ -31,6 +54,9 @@ Stock Management
             <h6 class="m-0 font-weight-bold text-primary"
                 style="display: flex; justify-content: space-between;align-items: center">
                 <span style="font-size: 1.3rem;">Stock</span>
+                <a type="button" class="btn btn-primary" href="{% url 'add_stock' %}" data-toggle="modal"
+                    data-target="#stockCreateModal">Add New
+                    Stock</a>
             </h6>
         </div>
         <div class="card-body">
@@ -44,21 +70,108 @@ Stock Management
                             <th>Stock Sold</th>
                             <th>Stock Remaining</th>
                             <th>Stock From</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for stock in stocks %}
                         <tr>
-                            <td>{{ forloop.counter }}1</td>
-                            <td>{{ about.detail|safe }}Rice</td>
-                            <td>{{ about.detail|safe }}400</td>
-                            <td>{{ about.detail|safe }}200</td>
-                            <td>{{ about.detail|safe }}200</td>
-                            <td>{{ about.detail|safe }}Vhati Groceries</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{% for product in products %}
+                                {% if product.product_stock == stock %}
+                                {{product.product_name}}
+                                {% endif %}
+                                {% endfor %}</td>
+                            <td>{{ stock.quantity_imported }}</td>
+                            <td>{{ stock.quantity_sold }}</td>
+                            <td>{{ stock.quantity_remaining }}</td>
+                            <td>{{ stock.suppliers.suppliers_name }}</td>
+                            <td>
+                                <a href="{% url 'add_quantity' stock.id%}" class="open" data-toggle="modal"
+                                data-target="#quantityCreateModal">
+                                    <button data-id="{{stock.id}}" class="btn btn-primary" type="button">
+                                        Add Stock
+                                    </button>
+                                </a>
+                            </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </section>
+
+
+<form action="{% url 'add_stock' %}" method="post" id="universityCreateFrom" enctype="multipart/form-data">
+
+    <div class="modal fade" id="stockCreateModal" tabindex="-1" role="dialog" aria-labelledby="studentCreateModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-add-student" id="exampleModalLongTitle">Add Stock </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: var(--color-white);">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        {% include 'stock/_form.html' %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form action="" method="post" id="add_quantity" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal fade" id="quantityCreateModal" tabindex="-1" role="dialog"
+        aria-labelledby="studentCreateModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-add-student" id="exampleModalLongTitle">Add Stock </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" style="color: var(--color-white);">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-3 form-group">
+                        <label for="quantity_imported">Additional Quantity</label>
+                        <input type="number" class="form-control" name="quantity_imported" id="quantity_imported"
+                            required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+    var url;
+    $('.open').on("click", function () {
+        url = $(this).attr("href");
+    });
+
+    $("#submit").on("click", function () {
+        $('#add_quantity').attr('action', url)
+        $("#add_quantity").submit()
+        });
+</script>
 {% endblock %}

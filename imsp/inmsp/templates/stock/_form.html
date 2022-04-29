@@ -1,0 +1,29 @@
+<form>
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-lg-6 form-group">
+            <label for="product_name">Product Name</label>
+            <select class="form-control" name="product_name" id="product_name">
+                <option selected>--Select Product--</option>
+                {% for product in products %}
+                <option value="{{product.id}}">{{product.product_name}}</option>
+                {% endfor %}
+              </select>
+
+        </div>
+        <div class="col-lg-6 form-group">
+            <label for="suppliers_name">Supplier Name</label>
+            <select class="form-control" name="suppliers_name" id="suppliers_name">
+                <option selected>--Select Supplier--</option>
+                {% for supplier in suppliers %}
+                <option value="{{supplier.id}}">{{supplier.suppliers_name}}</option>
+                {% endfor %}
+              </select>
+        </div>
+        <div class="col-lg-3 form-group">
+            <label for="quantity_imported">Quantity Imported</label>
+            <input type="number" class="form-control" name="quantity_imported" id="quantity_imported" required>
+        </div>
+
+    </div>
+</form>

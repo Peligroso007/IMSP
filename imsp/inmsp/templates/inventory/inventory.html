@@ -51,11 +51,9 @@ Inventory Management
             <h6 class="m-0 font-weight-bold text-primary"
                 style="display: flex; justify-content: space-between;align-items: center">
                 <span style="font-size: 1.3rem;">Inventory</span>
-                {% if not about_us.count %}
                 <a type="button" class="btn btn-primary" href="{% url 'add_product' %}" data-toggle="modal"
                 data-target="#productCreateModal">Add
                     Product</a>
-                {% endif %}
             </h6>
         </div>
         <div class="card-body">
@@ -84,7 +82,7 @@ Inventory Management
                             <td>{{ p.product_marked_price }}</td>
                             <td>{{ p.product_discount }}%</td>
                             <td>{{ p.product_buying_price }}</td>
-                            <td>{{ p.product_stock }}</td>
+                            <td>{{ p.product_stock.quantity_remaining }}</td>
                             <td>{{ p.product_experies }}</td>
                             <td>{{ p.product_manufacture }}</td>
                             <td>

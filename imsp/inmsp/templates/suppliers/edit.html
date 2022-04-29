@@ -1,0 +1,73 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block title %}
+Suppliers Management
+{% endblock %}
+{% block styles %}
+<style>
+    .card {
+        margin: auto;
+        background: var(--color-bg);
+    }
+
+    form {
+        color: var(--color-primary);
+    }
+
+    .card-body,
+    .card-header,
+    .card-footer {
+        background: var(--color-bg);
+        border: 1px solid transparent;
+    }
+
+    .form-control,
+    .form-control:focus {
+        background: transparent;
+        border: 1px solid var(--color-primary);
+        color: var(--color-primary);
+    }
+
+    .form-control option {
+        background: var(--color-bg);
+    }
+</style>
+{% endblock%}
+
+{% block main_content %}
+<div class="card shadow mb-4 col-10">
+    <div class="card-header py-3">
+        <h6 class="m-0"
+            style="font-size: 1.5rem; color: var(--color-primary); display: flex; justify-content: space-between;align-items: center">
+            Edit Staff
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive col-12">
+            <form action="{% url 'edit_suppliers' s.id %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6 form-group">
+                        <label for="suppliers_name">Suppliers Name</label>
+                        <input type="text" class="form-control" name="suppliers_name" id="suppliers_name" value="{{s.suppliers_name}}" required>
+                    </div>
+                    <div class="col-lg-6 form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" name="location" id="location" value="{{s.location}}" required>
+                    </div>
+                    <div class="col-lg-3 form-group">
+                        <label for="contact">Contact</label>
+                        <input type="tel" class="form-control" name="contact" id="contact" value="{{s.contact}}" required>
+                    </div>
+
+                    <div class="col-lg-6 form-group">
+                        <label for="email">Email </label>
+                        <input type="email" class="form-control" name="email" value="{{s.email}}" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

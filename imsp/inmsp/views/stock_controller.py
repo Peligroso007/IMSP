@@ -23,8 +23,7 @@ def add_stock(request):
         suppliers_id = request.POST.get('suppliers_name')
         quantity_imported = request.POST.get('quantity_imported')
 
-        quantity_sold = 0
-        quantity_remaining = int(quantity_imported) - int(quantity_sold)
+        # quantity_remaining = int(quantity_imported) - int(quantity_sold)
 
         supplier = Suppliers.objects.get(id=suppliers_id)
 

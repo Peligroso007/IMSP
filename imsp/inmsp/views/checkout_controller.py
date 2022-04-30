@@ -25,6 +25,7 @@ def add_payment(request):
 
         payment = Payment.objects.create(product=product, quantity=quantity, price=product.product_marked_price, total_amount=total)
         payment.save()
+        
 
         return redirect('checkout')
 
